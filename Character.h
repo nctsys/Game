@@ -14,74 +14,7 @@ public:
     virtual ~Character (){}
 
     virtual void SetCharStats( const std::string& _chname, long& _race, int& _level, Armor* armor, Weapon* weapon, Apparel* apparel ) = 0;
-    
-    double getUpLevelExp() const { return expUpLevel; }
-    double getLevel() const { return this->_character._lvl; }
- 
-    void levelUp()
-    {
-        if( this->_character._exp == getUpLevelExp() )
-        {
-            this->_character._exp+= 1;
-            setUpLevelExp();
-        }
-    }
-      
-    void setUpLevelExp()
-    {
-        expUpLevel+= this->_character._lvl * 3500;
-    }
-	
-    bool isDeath () 
-    { 	
-        if( _character._hp <= 0 ) { death = true; }
-        else { death = false; }
-    	
-        return death;    	
-    }
-    
-    double atack( Character& enemy )
-    {
-        double p_atk, e_def;
-        p_atk = this->_character._atacklevel;
-        e_def = enemy._character._defenselevel;
-        
-        if( p_atk < e_def ) 
-        {
-            this->_character._hp-= 1;
-        }
-        if( p_atk > e_def )
-        {
-            enemy._character._hp-= ( p_atk - e_def );
-        }
-        else
-        {
-            this->_character._hp-= 1;
-            enemy._character._hp-= 1;
-        }
-    }
-    
-    double defence( Character& enemy )
-    {
-        double p_def, e_atk;
-        p_def = this->_character._defenselevel;
-        e_atk = enemy._character._atacklevel;
-        
-        if( p_def < e_atk ) 
-        {
-            this->_character._hp-= (e_atk - p_def);
-        }
-        if( p_def > e_atk )
-        {
-            enemy._character._hp-= 1;
-        }
-        else
-        {
-            this->_character._hp-= 1;
-            enemy._character._hp -= 1;
-        }
-    }
-    	  	
+       	  	
     struct char_data
     {
     	//CHARACTER 
