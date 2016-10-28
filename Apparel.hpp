@@ -17,31 +17,38 @@
 #include <iostream>
 #include <string>
 
-#include "IDs.hpp"
+#include "Items.hpp"
 
-class Apparel {
+class Apparel :public Items{
 public:
     
-    Apparel( const std::string& ap_name, long& ap_id, const std::string& ap_attr, const double& ap_bonus );
-    virtual ~Apparel();
+    Apparel( const std::string& ap_name, long ap_id, long ap_bonus_type, const double& ap_weight, const double& ap_bonus ):
+    Items( ap_name, ap_weight, ap_id )
+    {
+        this->apparel._apparel_bonus = ap_bonus;
+        this->apparel._apparel_bonus_type = ap_bonus_type;
+    }
+    virtual ~Apparel(){}
     
-    std::string getName() const { return this->apparel._apparel_name; }
-    std::string getApparelAttr() const { return this->apparel._apparel_attr; }
-    double getApparelBonus() const { return this->apparel._apparel_bonus; }
+    std::string GetName() const { return Items::GetName(); }
+    double GetWeight() const { return Items::GetWeight(); }
+    void SetApparelInfo( const std::string& attr ){ this->apparel._apparel_info = attr;}
+    std::string GetApparelInfo() const { return this->apparel._apparel_info; }
+    long GetApparelBonusType() const { return this->apparel._apparel_bonus_type;} 
+    double GetApparelBonusValue() const { return this->apparel._apparel_bonus; }
+    long GetID() const { return Items::GetID(); }
     
 private:
     
     struct apparel_attributes
     {
-        std::string _apparel_name;
-        long _apparel_id;
-        std::string _apparel_attr;
-        double _apparel_bonus;
+        std::string _apparel_info;
+        long _apparel_bonus_type;
+        double _apparel_bonus = 0;
+                
     } apparel;
     
-    void SetApparelAttr( const std::string& ap_name, long& ap_id, const std::string& ap_attr, const double& ap_bonus );
-    long getID() const { return this->apparel._apparel_id; }
-
+    
 };
 
 #endif /* APPAREL_HPP */

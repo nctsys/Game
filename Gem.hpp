@@ -22,8 +22,11 @@
 class Gem {
 public:
     
-    Gem( const std::string& gem_name, long& gem_id, const std::string& gem_attr, const double& gem_bonus );
-    virtual ~Gem();
+    Gem( const std::string& gem_name, long& gem_id, const std::string& gem_attr, const double& gem_bonus )
+    {
+        SetGemAttr( gem_name, gem_id, gem_attr, gem_bonus );
+    }
+    virtual ~Gem(){}
     
     std::string getName() const { return this->gem._gem_name; }
     std::string getAttr() const { return this->gem._gem_attr; }
@@ -36,10 +39,16 @@ private:
       std::string _gem_name;
       long gem_id;
       std::string _gem_attr;
-      double _gem_bonus;
+      double _gem_bonus = 0;
     } gem;
     
-    void SetGemAttr( const std::string& gem_name, long& gem_id, const std::string& gem_attr, const double& gem_bonus );
+    void SetGemAttr( const std::string& gem_name, long& gem_id, const std::string& gem_attr, const double& gem_bonus )
+    {
+        this->gem._gem_name = gem_name;
+        this->gem.gem_id = gem_id;
+        this->gem._gem_attr = gem_attr;
+        this->gem._gem_bonus = gem_bonus;
+    }
 
 };
 

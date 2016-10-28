@@ -19,35 +19,36 @@
 
 #include "Gem.hpp"
 #include "IDs.hpp"
+#include "Items.hpp"
 
-class Armor {
+class Armor : public Items
+{
 public:
     
-    Armor( const std::string& ar_name, long& armor_id, bool crafted, Gem* _gem, const double& def_attr, const double& weight );
-    virtual ~Armor();
+    Armor( const std::string& ar_name, long armor_id, const double& def_attr, const double& weight ):
+    Items( ar_name, weight, armor_id )
+    {
+        SetArmorAttr( def_attr );
+    }
+    virtual ~Armor(){}
     
-    std::string getArmorName() const { return this->armor._name; }
-    long getArmorId() const { return this->armor._armor_id; }
-    bool getCraftedStatus() const { return this->armor._crafted; }
+    std::string getArmorName() const { return Items::GetName(); }
+    long getArmorId() const { return Items::GetID(); }
     double getDefenselvl() const { return this->armor._def_lvl; }
-    double getWeight() const { return this->armor._armor_weight; }
-    std::string getGemAttr() const { return this->armor._gem_attr; }
-    double getGemBonus() const { return this->armor._gem_bonus; }
+    double getWeight() const { return Items::GetWeight(); }
     
 private:
     
     struct armor_attr
     {
-        std::string _name;
-        long _armor_id;
-        bool _crafted;
-        double _def_lvl;
-        double _armor_weight;
-        std::string _gem_attr;
-        double _gem_bonus;
+        bool _crafted = false;
+        double _def_lvl = 0;
     } armor;
     
-    void SetArmorAttr( const std::string& ar_name, long& armor_id, bool crafted, Gem* _gem, const double& def_attr, const double& weight );
+    void SetArmorAttr( const double& def_attr )
+    {
+        this->armor._def_lvl = def_attr;
+    }
 };
 
 #endif /* ARMOR_HPP */

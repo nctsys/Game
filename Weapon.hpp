@@ -14,44 +14,54 @@
 #ifndef WEAPON_HPP
 #define WEAPON_HPP
 
-#include <string>
-#include <iostream>
-
+#include "Items.hpp"
 #include "Gem.hpp"
-#include "IDs.hpp"
 
-class Weapon {
+class Weapon : public Items
+{
 public:
-   Weapon( const std::string& wp_name, long& weapon_id, long& hand_id,
-            const double& atk_lvl, const double& def_lvl, const double& weight, bool crafted, Gem* gem ); 
-    virtual ~Weapon();
+   Weapon( const std::string& wp_name, long weapon_id, const double& atk_lvl, const double& def_lvl, const double& weight):
+    Items( wp_name, weight, weapon_id )
+    {
+        SetAttributes( atk_lvl, def_lvl );
+    }
+    virtual ~Weapon(){}
     
-    std::string getName() const { return this->weapon._name; }
-    long getWeaponHand() const { return this->weapon._weapon_hand; }
+    std::string getName() const { return Items::GetName(); }
     double getAttackLevel() const { return this->weapon._attack_lvl; }
     double getDefenseLevel() const { return this->weapon._defense_lvl; }
-    double getWeight() const { return this->weapon._weapon_weight; }
+    double getWeight() const { return Items::GetWeight(); }
+    void AddGem( Gem *gem ){ this->weapon._gem = gem;}
+    Gem* GetGem(){ return this->weapon._gem;}
     bool getCraftStatus() const { return this->weapon._crafted; }
-    std::string getGemAttr() const { return this->weapon._gem_attr; }
-    double getGemBonus() const { this->weapon._gem_bonus; }
     
 private:
     
     struct weapon_attr
     {
-        std::string _name;
-        long _weapon_id;
-        long _weapon_hand;
-        double _attack_lvl;
-        double _defense_lvl;
-        double _weapon_weight;
-        std::string _gem_attr;
-        bool _crafted;
-        double _gem_bonus;
+      
+        double _attack_lvl = 0;
+        double _defense_lvl = 0;
+        bool _crafted = false;
+        Gem* _gem;
     } weapon;
     
-    void SetAttributes( const std::string& wp_name, long& weapon_id, long hand_id, 
-        const double& atk_lvl, const double& def_lvl, const double& weight, bool crafted, Gem* gem );
+    void SetAttributes( const double& atk_lvl, const double& def_lvl)
+    {
+        if( GetGem() != NULL )
+        {
+            this->weapon._attack_lvl = atk_lvl + GetGem()->getBonus();
+            this->weapon._defense_lvl = def_lvl + GetGem()->getBonus();
+            this->weapon._crafted = true;
+        }
+        else
+        {
+            this->weapon._attack_lvl = atk_lvl;
+            this->weapon._defense_lvl = def_lvl;
+            this->weapon._crafted = false;
+        }
+        
+    }
 };
 
 #endif /* WEAPPON_HPP */

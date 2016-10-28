@@ -107,13 +107,52 @@ namespace IDs
         NECKLACE = 202
     } typedef apparell;
     
-    //WEAPONS
+    enum 
+    {
+        APPAREL_MAGIC = 203,
+        APPAREL_DEFENSE = 204,
+        APPAREL_ATTACK = 205,
+        APPAREL_STRENGHT = 206,
+        APPAREL_CARRY_WEIGHT = 207,
+        APPAREL_STAMINA = 208,
+        APPAREL_lUCKY = 209
+    };
+    
+    //WEAPON HAND
     enum
     {
         LEFT_HAND,
         RIGHT_HAND,
+        TWO_HAND
     } typedef hand;
     
+    //WEAPON TYPES
+    enum
+    {
+      SHIELD,
+      TOWER_SHIELD,
+      ROUND_SHIELD,
+      
+      DAGGER,
+      KNIFE,
+      
+      SWORD,
+      LONG_SWORD,
+      GREATSWORD,
+      
+      AXE,
+      LONG_AXE,
+      WAR_AXE,
+      
+      WAR_HAMMER,
+      
+      BOW,
+      LONG_BOW,
+      GREAT_BOW,
+      
+      SPEAR,
+      
+    } typedef weapon_type;
 }
 
 

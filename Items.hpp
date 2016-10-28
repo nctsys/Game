@@ -15,10 +15,35 @@
 #ifndef ITEMS_HPP
 #define ITEMS_HPP
 
-#include "Armor.hpp"
-#include "Weapon.hpp"
-#include "Gem.hpp"
-#include "Apparel.hpp"
+#include <string>
+
+class Items
+{
+public:
+    
+    Items(const std::string item_name , const double& item_weight = 0, long item_id = -1 )
+    {
+        this->_item._item_name = item_name;
+        this->_item._item_weight = item_weight;
+        this->_item._item_id = item_id;
+    }
+    virtual ~Items(){}
+    
+    std::string GetName() const { return this->_item._item_name ;}
+    double GetWeight() const { return this->_item._item_weight; }
+    long GetID() const { return this->_item._item_id; }
+    
+private:
+    
+    struct item_attributes
+    {
+       std::string _item_name;
+       double _item_weight;
+       long _item_id;
+       
+    } _item;
+    
+};
 
 #endif /* ITEMS_HPP */
 
